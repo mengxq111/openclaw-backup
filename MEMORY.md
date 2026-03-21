@@ -28,6 +28,58 @@
 - 针对性出题：根据薄弱点生成专项练习
 - 数学每日一题：已加入定时任务（每天11点发群）
 
+## 2026-03-22 问题：飞书 main 机器人无响应
+
+### 问题描述
+- 飞书 main 机器人状态显示 "running, works"，但发消息无任何响应
+- 其他机器人（study、xiaonaidong）正常，只有 main 异常
+
+### 排查过程
+1. `openclaw channels status --probe` 显示 main 状态正常
+2. 检查配置文件 `~/.openclaw/openclaw.json` 的 feishu accounts 配置
+3. 对比各 account 配置发现差异
+
+### 根本原因
+飞书机器人的 `channels.feishu.accounts` 中，**main 账户缺少路由配置**：
+
+```json
+"main": {
+  "appId": "cli_a93100f019fa9cc9",
+  "appSecret": "Xzi7O0lkZUgTQBvB4eMeybnbVuU2FE3N"
+  // ❌ 缺少 routes.agent
+  // ❌ 缺少 dmPolicy
+}
+```
+
+对比正常工作的 study 账户：
+```json
+"study": {
+  "appId": "...",
+  "appSecret": "...",
+  "routes": { "agent": "study" },  // ✅ 有路由
+  "dmPolicy": "open"               // ✅ 有策略
+}
+```
+
+**结论**：`dmPolicy` 和 `routes.agent` 缺失导致消息无法正确路由到 main agent
+
+### 解决方案
+重启 gateway：`openclaw gateway restart`
+
+### 预防措施
+- 添加新飞书 account 时，必须包含 `routes.agent` 和 `dmPolicy`
+- 标准模板：
+  ```json
+  "accountName": {
+    "appId": "...",
+    "appSecret": "...",
+    "routes": { "agent": "accountName" },
+    "dmPolicy": "open"  // 或 "pairing"
+  }
+  ```
+
+---
+
 ## 2026-03-12 问题：Skills 无法使用
 
 ### 问题描述
