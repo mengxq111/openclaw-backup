@@ -112,6 +112,19 @@ ls -la ~/.openclaw/workspace/skills/
 cat ~/.openclaw/openclaw/openclaw.json
 ```
 
+## 2026-03-21 技术配置记录
+
+### 多agent飞书路由绑定
+- study agent 已绑定到飞书 study 机器人：`feishu:study` → `study` agent
+- 命令：`openclaw agents bind --agent study --bind feishu:study`
+- 配置文件：~/.openclaw/openclaw.json
+
+### 新建agent：使徒一号
+- 基于 workspace-study
+- 身份：忠诚勇敢的骑士 🦞→🔱
+- 主人：大大（大牙的老婆）
+- 飞书App ID：cli_a9341f3c5979dcd5
+
 ## 2026-03-21 数学学习情况
 
 ### 今日作业（3份）
