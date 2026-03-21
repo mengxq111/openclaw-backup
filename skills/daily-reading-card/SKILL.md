@@ -111,3 +111,49 @@ Example: `/Users/wowo/Documents/学习辅导/语文/阅读赏析/每日美文_20
 - 仿写例子要贴近初一学生生活（校园、亲子、朋友、兴趣）
 - 每个技法附1个仿写例子，例子要短（2-4句话），让初中生能模仿
 - 每天自动生成的卡片会覆盖以上所有内容维度
+
+## 完整流程（定时任务用）
+
+### Step 1: 生成 HTML 卡片
+
+按上方 Prompt 生成 HTML，保存到：
+`/Users/wowo/Documents/学习辅导/语文/阅读赏析/每日美文_卡片.html`
+
+### Step 2: HTML 转 PDF
+
+```bash
+# 先把 HTML 放到 workspace 目录（飞书发送需要）
+cp "/Users/wowo/Documents/学习辅导/语文/阅读赏析/每日美文_卡片.html" \
+   "/Users/wowo/.openclaw/workspace/每日美文_卡片_temp.html"
+
+# 用 openclaw browser 打开并导出 PDF
+openclaw browser open "file:///Users/wowo/.openclaw/workspace/每日美文_卡片_temp.html"
+# 等待页面加载后：
+openclaw browser pdf --target-id <tab-id>
+# PDF 保存后重命名为带日期的名称
+mv ~/Downloads/*.pdf "/Users/wowo/.openclaw/workspace/每日美文_YYYYMMDD.pdf"
+```
+
+**注意**：PDF 文件需要放在 `~/.openclaw/workspace/` 目录下才能被飞书发送。
+
+### Step 3: 发送 PDF 到飞书群
+
+群组 ID: `oc_f89abf0190161756b79dd73c8c5eab8a`
+
+```bash
+openclaw message send \
+  --account main \
+  --channel feishu \
+  --target oc_f89abf0190161756b79dd73c8c5eab8a \
+  --media "/Users/wowo/.openclaw/workspace/每日美文_YYYYMMDD.pdf" \
+  --message "📖 每日美文阅读 · 第X期"
+```
+
+### Cron 定时任务配置
+
+- **Job ID**: `86da932c-116f-4535-9002-5c71bdd7f908`
+- **时间**: 每天上午 11:00 (Asia/Shanghai)
+- **Session**: isolated
+- **执行内容**: 生成 HTML → 转 PDF → 发送飞书群（三步连续执行）
+
+如需修改定时任务，先 `openclaw cron list` 查看，再 `openclaw cron edit <id> ...`
