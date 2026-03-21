@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>辩论赛讲稿 - 正方第六组</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Noto+Sans+SC:wght@400;700&display=swap');
+  
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    font-family: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    font-size: 11pt;
+    line-height: 1.8;
+    color: #333;
+    background: #fff;
+    padding: 0;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  /* 每辩手一页的样式 */
+  .page {
+    padding: 40px 50px;
+    page-break-after: always;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .page:last-child {
+    page-break-after: avoid;
+  }
+  
+  /* 首页头部 */
+  .header {
+    text-align: center;
+    padding: 30px 0 20px;
+    border-bottom: 2px solid #2c3e50;
+    margin-bottom: 25px;
+  }
+  
+  .school-title {
+    font-size: 13pt;
+    color: #666;
+    margin-bottom: 8px;
+    letter-spacing: 2px;
+  }
+  
+  .debate-title {
+    font-size: 16pt;
+    font-weight: bold;
+    color: #2c3e50;
+    margin-bottom: 15px;
+  }
+  
+  .topic-box {
+    background: #f8f9fa;
+    border-left: 4px solid #2c3e50;
+    padding: 10px 15px;
+    margin: 15px 0;
+    text-align: left;
+    font-size: 10.5pt;
+  }
+  
+  .topic-box .label {
+    color: #666;
+    font-size: 9pt;
+    margin-bottom: 3px;
+  }
+  
+  .topic-box .topic {
+    font-weight: bold;
+    color: #2c3e50;
+  }
+  
+  .position {
+    color: #c0392b;
+    font-weight: bold;
+    margin: 10px 0;
+    font-size: 11pt;
+  }
+  
+  /* 小组信息 */
+  .group-info {
+    background: #2c3e50;
+    color: #fff;
+    padding: 15px 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+  }
+  
+  .group-info h3 {
+    font-size: 13pt;
+    margin-bottom: 8px;
+    letter-spacing: 3px;
+  }
+  
+  .group-info p {
+    font-size: 10pt;
+    opacity: 0.9;
+    margin: 3px 0;
+  }
+  
+  /* 辩手标题 */
+  .speaker-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px dashed #ccc;
+  }
+  
+  .speaker-num {
+    background: #2c3e50;
+    color: #fff;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 12pt;
+    margin-right: 15px;
+    flex-shrink: 0;
+  }
+  
+  .speaker-info {
+    flex: 1;
+  }
+  
+  .speaker-name {
+    font-size: 14pt;
+    font-weight: bold;
+    color: #2c3e50;
+  }
+  
+  .speaker-role {
+    font-size: 9pt;
+    color: #888;
+  }
+  
+  .speaker-section {
+    font-size: 10pt;
+    color: #666;
+    background: #eee;
+    padding: 3px 10px;
+    border-radius: 4px;
+  }
+  
+  /* 讲话内容 */
+  .speech-content {
+    flex: 1;
+    font-size: 11pt;
+    line-height: 2;
+    text-align: justify;
+    padding: 15px 0;
+  }
+  
+  .speech-content p {
+    margin-bottom: 12px;
+    text-indent: 2em;
+  }
+  
+  .speech-content .highlight {
+    background: #fff3cd;
+    padding: 2px 4px;
+    border-radius: 3px;
+  }
+  
+  .speech-content strong {
+    color: #2c3e50;
+  }
+  
+  /* 要点标题 */
+  .point-title {
+    font-weight: bold;
+    color: #2c3e50;
+    margin-right: 5px;
+  }
+  
+  /* 反击句 */
+  .counter-args {
+    margin-top: 10px;
+  }
+  
+  .counter-args .arg-item {
+    margin-bottom: 10px;
+    padding: 8px 12px;
+    background: #f8f9fa;
+    border-left: 3px solid #e74c3c;
+    border-radius: 0 4px 4px 0;
+  }
+  
+  .counter-args .arg-num {
+    font-weight: bold;
+    color: #e74c3c;
+    margin-right: 8px;
+  }
+  
+  /* 备用资料卡 */
+  .reference-card {
+    margin-top: auto;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+  }
+  
+  .reference-card h4 {
+    font-size: 10pt;
+    color: #666;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+  }
+  
+  .ref-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 9pt;
+  }
+  
+  .ref-table th {
+    background: #2c3e50;
+    color: #fff;
+    padding: 6px 10px;
+    text-align: left;
+  }
+  
+  .ref-table td {
+    padding: 5px 10px;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .ref-table tr:nth-child(even) td {
+    background: #f8f9fa;
+  }
+  
+  .footer {
+    text-align: center;
+    padding: 20px;
+    color: #999;
+    font-size: 9pt;
+  }
+  
+  @media print {
+    .page {
+      padding: 30px 40px;
+      min-height: auto;
+      page-break-after: always;
+    }
+    
+    body {
+      font-size: 10.5pt;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- ========== 首页 ========== -->
+<div class="page">
+  <div class="header">
+    <div class="school-title">七年级辩论赛</div>
+    <div class="debate-title">正方完整讲稿</div>
+    <div class="topic-box">
+      <div class="label">辩题</div>
+      <div class="topic">骆驼祥子的悲剧是自身原因还是社会所迫？</div>
+    </div>
+    <div class="position">正方观点：主要源于自身原因</div>
+  </div>
+  
+  <div class="group-info">
+    <h3>第六组</h3>
+    <p><strong>组长：</strong>王若凝</p>
+    <p><strong>一辩（开场陈词）：</strong>王若凝</p>
+    <p><strong>二辩（论点展开）：</strong>何奕澄</p>
+    <p><strong>三辩（预判反驳）：</strong>楼亦颀</p>
+    <p><strong>四辩（自由辩论）：</strong>贝乐圣</p>
+    <p><strong>五辩（自由辩论）：</strong>陈禹轩</p>
+    <p><strong>六辩（总结陈词）：</strong>潘俊玮</p>
+  </div>
+  
+  <div class="footer">第六组 · 组长：王若凝</div>
+</div>
+
+<!-- ========== 一辩 ========== -->
+<div class="page">
+  <div class="speaker-header">
+    <div class="speaker-num">一</div>
+    <div class="speaker-info">
+      <div class="speaker-name">王若凝</div>
+      <div class="speaker-role">组长 · 开场陈词</div>
+    </div>
+    <div class="speaker-section">约3分钟</div>
+  </div>
+  
+  <div class="speech-content">
+    <p>尊敬的比赛评委、对方辩友，大家好。</p>
+    <p>我是正方代表，我方的观点是：<strong>骆驼祥子的悲剧，主要源于自身原因</strong>。</p>
+    <p><span class="highlight">社会是舞台，选择才是剧本——祥子自己写了自己的结局。</span></p>
+    
+    <p><span class="point-title">第一，祥子的性格缺陷是悲剧的根本原因。</span></p>
+    <p>祥子刚进城时是有梦想的，但性格中有一个致命弱点：短视、固执、不懂反思。第一次买车后，他贪图高利息把钱借出去，结果连本带利全被卷走——<strong>这是社会逼他的，还是他自己选的？</strong></p>
+    
+    <p><span class="point-title">第二，祥子在每一次机会面前，都选择了退缩和放弃。</span></p>
+    <p>虎妞死后，小福子愿意跟他走，曹先生愿意收留他，刘四爷的车厂还开着。但祥子选择了放弃——抽烟、赌博、占朋友便宜。书里写："他没了心，他的心被人偷了。"<strong>那颗心，是社会偷走的，还是他自己弄丢的？</strong></p>
+    
+    <p><span class="point-title">第三，现实对照。</span></p>
+    <p>同样被当兵抢走车，老马没有彻底堕落；同样下岗失业，有人卖茶叶蛋供孩子读书、咬牙干下来了。<strong>同样是人，同样是苦，为什么有人站住了，有人倒下了？</strong></p>
+    
+    <p>我方的核心论点是：外因通过内因起作用。<strong>祥子的悲剧，不是因为社会没给他机会，而是他在每个机会面前都做出了错误的选择。</strong></p>
+    <p>谢谢。</p>
+  </div>
+</div>
+
+<!-- ========== 二辩 ========== -->
+<div class="page">
+  <div class="speaker-header">
+    <div class="speaker-num">二</div>
+    <div class="speaker-info">
+      <div class="speaker-name">何奕澄</div>
+      <div class="speaker-role">论点展开</div>
+    </div>
+    <div class="speaker-section">约2分钟</div>
+  </div>
+  
+  <div class="speech-content">
+    <p>大家好，我来具体说。</p>
+    
+    <p>祥子刚进城特别努力，三年存钱买了第一辆车。但他有一个大问题：<strong>不会反思，同样的坑踩无数次。</strong></p>
+    
+    <p>第一次被当兵的抓了，第二次被孙侦探骗了，第三次虎妞死了——<strong>每一次他都没学到东西，下次还是一样。</strong></p>
+    
+    <p>对方说"被社会逼的"，但书里的老马同样是拉车的，老婆孩子饿死了，还是咬牙活着，没有骗人、没有偷东西。<strong>为什么祥子不行？因为他性格里有弱点：消极、认命、不上进。</strong></p>
+    
+    <p>高妈也是穷人，也给祥子出过攒钱的主意，是祥子自己不听！同样的人，同样的处境，为什么结果不同？答案就是祥子自身的问题。</p>
+  </div>
+</div>
+
+<!-- ========== 三辩 ========== -->
+<div class="page">
+  <div class="speaker-header">
+    <div class="speaker-num">三</div>
+    <div class="speaker-info">
+      <div class="speaker-name">楼亦颀</div>
+      <div class="speaker-role">预判反驳</div>
+    </div>
+    <div class="speaker-section">约1.5分钟</div>
+  </div>
+  
+  <div class="speech-content">
+    <p>对方肯定要说：旧社会太乱，老百姓活不下去。</p>
+    <p>我来拆解——</p>
+    
+    <p><span class="point-title">第一，这个逻辑等于"所有人都没办法"，但显然不是。</span></p>
+    <p>老马活下来了，曹先生也活下来了，虎妞还能管车厂。<strong>那个时代不是铁板一块，有人还是能找到出路的。</strong></p>
+    
+    <p><span class="point-title">第二，祥子的堕落是一步一步的，不是一下子被压垮的。</span></p>
+    <p>虎妞死的时候，他还能拉车；小福子死的时候，他才彻底崩溃。<strong>这个崩溃，是他自己的选择，不是社会动乱。</strong></p>
+    
+    <p><span class="point-title">第三，祥子有选择的时候，他选了吗？</span></p>
+    <p>小福子愿意跟他走，他不要；曹先生让他回去，他不去；刘四爷给他工作机会，他嫌丢人。<strong>他自己把门关上了，怎么能怪社会把门锁死？</strong></p>
+  </div>
+</div>
+
+<!-- ========== 四辩 ========== -->
+<div class="page">
+  <div class="speaker-header">
+    <div class="speaker-num">四</div>
+    <div class="speaker-info">
+      <div class="speaker-name">贝乐圣</div>
+      <div class="speaker-role">自由辩论</div>
+    </div>
+    <div class="speaker-section">准备反击句</div>
+  </div>
+  
+  <div class="speech-content">
+    <div class="counter-args">
+      <div class="arg-item">
+        <span class="arg-num">①</span>高妈给祥子出过主意，教他怎么攒钱，是祥子自己不听！对方怎么说？
+      </div>
+      <div class="arg-item">
+        <span class="arg-num">②</span>祥子第一次买车前，社会变好了吗？没有。但他那时候还有梦想。<strong>社会没变，是祥子的心变了。</strong>
+      </div>
+      <div class="arg-item">
+        <span class="arg-num">③</span>祥子有三次起来的机会——虎妞有钱、曹先生收留、小福子爱他。<strong>他抓住过哪一次？</strong>
+      </div>
+      <div class="arg-item">
+        <span class="arg-num">④</span>请问对方：一个人自己不想站起来了，别人能扶起来吗？
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== 五辩 ========== -->
+<div class="page">
+  <div class="speaker-header">
+    <div class="speaker-num">五</div>
+    <div class="speaker-info">
+      <div class="speaker-name">陈禹轩</div>
+      <div class="speaker-role">自由辩论</div>
+    </div>
+    <div class="speaker-section">准备反击句</div>
+  </div>
+  
+  <div class="speech-content">
+    <div class="counter-args">
+      <div class="arg-item">
+        <span class="arg-num">①</span>对方说"社会逼迫"——能举出数据吗？那个年代有多少人变成了祥子？如果只有少数人，问题怎么能全怪社会？
+      </div>
+      <div class="arg-item">
+        <span class="arg-num">②</span>祥子最大的敌人不是社会，是他自己。他的消极、认命、不学习，是<strong>他自己养成</strong>的。
+      </div>
+      <div class="arg-item">
+        <span class="arg-num">③</span>同样是苦日子，为什么有人成了"老马"，有人成了"祥子"？<strong>差别在哪里？</strong>
+      </div>
+      <div class="arg-item">
+        <span class="arg-num">④</span>请对方回答：祥子最后一次堕落，是因为社会变了，还是因为他<strong>自己不想再努力了</strong>？
+      </div>
+    </div>
+  </div>
+  
+  <div class="reference-card">
+    <h4>📚 自由辩论备用资料</h4>
+    <table class="ref-table">
+      <tr>
+        <th>人物</th>
+        <th>身份</th>
+        <th>处境对比</th>
+        <th>他们的选择</th>
+      </tr>
+      <tr>
+        <td>高妈</td>
+        <td>穷人妇女</td>
+        <td>给祥子出过攒钱主意</td>
+        <td>祥子不听</td>
+      </tr>
+      <tr>
+        <td>老马</td>
+        <td>拉车老人</td>
+        <td>老婆孩子饿死</td>
+        <td>咬牙活着，没偷没骗</td>
+      </tr>
+      <tr>
+        <td>曹先生</td>
+        <td>教书先生</td>
+        <td>被政治迫害过</td>
+        <td>重新站起来</td>
+      </tr>
+      <tr>
+        <td>虎妞</td>
+        <td>车厂老板女儿</td>
+        <td>一个女人的处境</td>
+        <td>撑起车厂</td>
+      </tr>
+      <tr>
+        <td>小福子</td>
+        <td>贫民女儿</td>
+        <td>比祥子惨十倍</td>
+        <td>最后自尽</td>
+      </tr>
+    </table>
+    <p style="margin-top:10px; font-size:9pt; color:#666;"><strong>直接用：</strong>同样是人，祥子有选择的时候都放弃了，其他人没有——差别在哪里？</p>
+  </div>
+</div>
+
+<!-- ========== 六辩 ========== -->
+<div class="page">
+  <div class="speaker-header">
+    <div class="speaker-num">六</div>
+    <div class="speaker-info">
+      <div class="speaker-name">潘俊玮</div>
+      <div class="speaker-role">总结陈词</div>
+    </div>
+    <div class="speaker-section">约1.5分钟</div>
+  </div>
+  
+  <div class="speech-content">
+    <p>尊敬的评委、对方辩友，大家好。</p>
+    
+    <p>我方想说一句最核心的话：<strong><span class="highlight">同情不等于免责。</span></strong></p>
+    
+    <p>祥子的悲剧，不是一夜之间发生的。他是<strong>一点一点放弃自己的</strong>——不接受虎妞的钱、挥霍遗产、不跟小福子走、不回曹先生那里。每一步，都是他自己的脚印。</p>
+    
+    <p>对方说"社会逼迫"，但——</p>
+    <p>刘四爷给他工作机会，他嫌丢人；</p>
+    <p>曹先生愿意收留，他不愿意回；</p>
+    <p>小福子爱他，他选择逃避。</p>
+    <p><strong>每一次有人想拉他一把，他都自己甩开了。</strong></p>
+    
+    <p>老舍先生想告诉我们：<strong>人如果失去内心的力量，外面再好也救不了你。</strong></p>
+    
+    <p>祥子的悲剧，是性格的悲剧，是选择的悲剧，<strong>是自身的悲剧</strong>。</p>
+    <p>谢谢大家。</p>
+  </div>
+  
+  <div class="footer">第六组 · 组长：王若凝</div>
+</div>
+
+</body>
+</html>
