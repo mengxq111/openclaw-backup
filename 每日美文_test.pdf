@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>每日美文阅读 · 第2期</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Noto+Sans+SC:wght@400;700&display=swap');
+  
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  
+  body {
+    font-family: 'Noto Sans SC', 'PingFang SC', sans-serif;
+    background: #f0f4f8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+  }
+  
+  .card {
+    width: 720px;
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.12);
+    overflow: hidden;
+  }
+  
+  .card-top {
+    background: linear-gradient(135deg, #5b8a72 0%, #7cb896 50%, #a8d5ba 100%);
+    padding: 28px 38px 24px;
+    position: relative;
+  }
+  
+  .card-top::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 0;
+    right: 0;
+    height: 30px;
+    background: #fff;
+    border-radius: 50% 50% 0 0;
+  }
+  
+  .card-label {
+    font-size: 10pt;
+    letter-spacing: 3px;
+    color: rgba(255,255,255,0.85);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    font-weight: 700;
+  }
+  
+  .card-title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 22pt;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 4px;
+  }
+  
+  .card-author {
+    font-size: 11pt;
+    color: rgba(255,255,255,0.9);
+  }
+  
+  .card-body {
+    padding: 30px 38px 28px;
+  }
+  
+  .section-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 10pt;
+    font-weight: 700;
+    color: #5b8a72;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    margin-top: 20px;
+  }
+  
+  .section-title:first-child { margin-top: 0; }
+  .section-title .icon { font-size: 14pt; }
+  
+  .essay-text {
+    background: #f8faf9;
+    border-left: 4px solid #5b8a72;
+    border-radius: 0 12px 12px 0;
+    padding: 18px 22px;
+    font-family: 'Noto Serif SC', serif;
+    font-size: 12.5pt;
+    line-height: 2.15;
+    color: #333;
+    position: relative;
+  }
+  
+  .essay-text::before {
+    content: '"';
+    position: absolute;
+    top: 8px;
+    left: 10px;
+    font-size: 40pt;
+    color: #5b8a72;
+    opacity: 0.25;
+    font-family: Georgia, serif;
+    line-height: 1;
+  }
+  
+  .essay-text .indent {
+    padding-left: 1.5em;
+  }
+  
+  .analysis-box {
+    background: #fff;
+    border: 1px solid #e8f0ec;
+    border-radius: 12px;
+    padding: 14px 18px;
+  }
+  
+  .analysis-box .label {
+    font-size: 10pt;
+    font-weight: 700;
+    color: #5b8a72;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+  }
+  
+  .analysis-box .text {
+    font-size: 11pt;
+    line-height: 1.85;
+    color: #555;
+  }
+  
+  .analysis-box + .analysis-box { margin-top: 10px; }
+  
+  .highlights-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  
+  .highlight-box {
+    background: linear-gradient(135deg, #f0f7f4 0%, #e8f5ec 100%);
+    border-radius: 12px;
+    padding: 14px 16px;
+  }
+  
+  .highlight-box .box-title {
+    font-size: 9.5pt;
+    font-weight: 700;
+    color: #5b8a72;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  
+  .highlight-box .box-title .emoji { font-size: 13pt; }
+  
+  .word-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  
+  .word-tag {
+    background: #5b8a72;
+    color: #fff;
+    font-size: 10pt;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-weight: 700;
+  }
+  
+  .highlight-box .sentence {
+    font-size: 11pt;
+    line-height: 1.85;
+    color: #444;
+    font-style: italic;
+  }
+  
+  .writing-section {
+    background: #fffbf0;
+    border: 1px solid #f0e8cc;
+    border-radius: 12px;
+    padding: 15px 18px;
+    margin-top: 12px;
+  }
+  
+  .writing-section .box-title {
+    font-size: 10pt;
+    font-weight: 700;
+    color: #c49a3a;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  
+  .writing-section .box-title .emoji { font-size: 13pt; }
+  
+  .writing-section .explain {
+    font-size: 11pt;
+    line-height: 1.8;
+    color: #555;
+    margin-bottom: 10px;
+  }
+  
+  .example-block {
+    background: #fff;
+    border-radius: 8px;
+    padding: 10px 14px;
+    border-left: 3px solid #c49a3a;
+    margin-bottom: 8px;
+  }
+  
+  .example-block:last-child { margin-bottom: 0; }
+  
+  .example-block .ex-label {
+    font-size: 9.5pt;
+    font-weight: 700;
+    color: #c49a3a;
+    margin-bottom: 4px;
+  }
+  
+  .example-block .ex-text {
+    font-size: 10.5pt;
+    line-height: 1.85;
+    color: #666;
+  }
+  
+  .card-footer {
+    background: #f8faf9;
+    padding: 14px 38px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #e8f0ec;
+  }
+  
+  .footer-left { font-size: 9.5pt; color: #999; letter-spacing: 1px; }
+  .footer-right { font-size: 9.5pt; color: #5b8a72; font-weight: 700; letter-spacing: 1px; }
+  
+  @media print {
+    body { background: #fff; padding: 0; }
+    .card { box-shadow: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <div class="card-top">
+    <div class="card-label">📖 每日美文阅读 · 第2期</div>
+    <div class="card-title">《济南的冬天》节选</div>
+    <div class="card-author">老舍</div>
+  </div>
+  
+  <div class="card-body">
+    
+    <div class="section-title">
+      <span class="icon">📜</span>
+      <span>原文选读</span>
+    </div>
+    <div class="essay-text"><p>对于一个在北平住惯的人，像我，冬天要是不刮风，便觉得是奇迹；济南的冬天是没有风声的。对于一个刚由伦敦回来的人，像我，冬天要能看得见日光，便觉得是怪事；济南的冬天是响晴的。自然，在热带的地方，日光是永远那么毒，响亮的天气，反有点叫人害怕。可是，在北中国的冬天，而能有温晴的天气，济南真正得算个宝地。</p><p class='indent'>设若单单是有阳光，那也算不了出奇。请闭上眼睛想：一个老城，有山有水，全在天底下晒着阳光，暖和安适地睡着，只等春风来把它们唤醒，这是不是个理想的境界？</p><p class='indent'>小山整把济南围了个圈儿，只有北边缺着点口儿。这一圈小山在冬天特别可爱，好像是把济南放在一个小摇篮里，它们安静不动地低声地说："你们放心吧，这儿准保暖和。"济南的人们在冬天是面上含笑的。他们一看那些小山，心中便觉得有了着落，有了依靠。他们由天上看到山上，便不知不觉地想起："明天也许就是春天了吧？这样的温暖，今天夜里山草也许就绿起来了吧？"就是这点幻想不能一时实现，他们也并不着急，因为这样慈善的冬天，干啥还希望别的呢！</p><p class='indent'>最妙的是下点小雪呀。看吧，山上的矮松越发的青黑，树尖上顶着一髻儿白花，像些小日本看护妇。山尖全白了，给蓝天镶上一道银边。山坡上，有的地方雪厚点，有的地方草色还露着；这样，一道白，一道暗黄，给山们穿上一件带水纹的花衣；看着看着，这件花衣好像被风儿吹动，叫你希望看见一点更美的山的肌肤。等到快日落的时候，微黄的阳光斜射在山腰上，那点薄雪好像忽然害了羞，微微露出点粉色。就是下小雪吧，济南是受不住大雪的，那些小山太秀气！</p></div>
+    
+    <div class="section-title">
+      <span class="icon">🔍</span>
+      <span>出处与赏析</span>
+    </div>
+    <div class="analysis-box">
+      <div class="label">📚 背景</div>
+      <div class="text">老舍（1899-1966），原名舒庆春，中国现代小说家、剧作家。《济南的冬天》写于1931年，是其早期散文代表作，发表于1932年。</div>
+    </div>
+    <div class="analysis-box">
+      <div class="label">✨ 赏析</div>
+      <div class="text">文章运用比喻、拟人等修辞手法，将济南的山、水、阳光写得温情脉脉。以"慈善"为核心情感基调，通篇不见"爱"字，却处处透着老舍对济南的喜爱。写景由远及近，从城的全景到山的局部，层次分明。</div>
+    </div>
+    
+    <div class="section-title">
+      <span class="icon">🌟</span>
+      <span>好词好句</span>
+    </div>
+    <div class="highlights-grid">
+      <div class="highlight-box">
+        <div class="box-title"><span class="emoji">💎</span> 重点词语</div>
+        <div class="word-list"><div class="word-list"><span class="word-tag">温晴</span><span class="word-tag">响晴</span><span class="word-tag">慈善</span><span class="word-tag">着落</span><span class="word-tag">秀气</span><span class="word-tag">镶边</span><span class="word-tag">Reserved</span><span class="word-tag">害臊</span><span class="word-tag">日落</span><span class="word-tag">小摇篮</span></div></div>
+      </div>
+      <div class="highlight-box">
+        <div class="box-title"><span class="emoji">✨</span> 精彩句子</div>
+        <div class="sentence">“最妙的是下点小雪呀。看吧，山上的矮松越发的青黑，树尖上顶着一髻儿白花，像些小日本看护妇。”——比喻新颖，拟人贴切，画面感极强</div>
+      </div>
+    </div>
+    
+    <div class="section-title">
+      <span class="icon">✍️</span>
+      <span>写作应用</span>
+    </div>
+    
+    <div class="writing-section" style="margin-top: 12px;">
+      <div class="box-title"><span class="emoji">💡</span> 比喻拟人</div>
+      <div class="explain">选取济南冬天的典型景物，用新颖贴切的比喻和拟人写出小山的秀气</div>
+    </div>
+    <div class="writing-section" style="margin-top: 12px;">
+      <div class="box-title"><span class="emoji">💡</span> 借景抒情</div>
+      <div class="explain">全文不见"爱"字却处处含情，通过景物描写传递赞美喜爱之情</div>
+    </div>
+    
+  </div>
+  
+  <div class="card-footer">
+    <div class="footer-left">2026年3月21日 · 周六</div>
+    <div class="footer-right">🦞 大脑袋 · 每日美文阅读</div>
+  </div>
+</div>
+
+</body>
+</html>
