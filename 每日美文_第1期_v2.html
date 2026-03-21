@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>每日美文阅读 · 第1期</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Noto+Sans+SC:wght@400;700&display=swap');
+  
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    font-family: 'Noto Sans SC', 'PingFang SC', sans-serif;
+    background: #f0f4f8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+  }
+  
+  .card {
+    width: 720px;
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.12);
+    overflow: hidden;
+  }
+  
+  /* 顶部 */
+  .card-top {
+    background: linear-gradient(135deg, #5b8a72 0%, #7cb896 50%, #a8d5ba 100%);
+    padding: 28px 38px 24px;
+    position: relative;
+  }
+  
+  .card-top::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 0;
+    right: 0;
+    height: 30px;
+    background: #fff;
+    border-radius: 50% 50% 0 0;
+  }
+  
+  .card-label {
+    font-size: 10pt;
+    letter-spacing: 3px;
+    color: rgba(255,255,255,0.85);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    font-weight: 700;
+  }
+  
+  .card-title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 22pt;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 4px;
+  }
+  
+  .card-author {
+    font-size: 11pt;
+    color: rgba(255,255,255,0.9);
+  }
+  
+  /* 内容区 */
+  .card-body {
+    padding: 30px 38px 28px;
+  }
+  
+  .section-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 10pt;
+    font-weight: 700;
+    color: #5b8a72;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    margin-top: 20px;
+  }
+  
+  .section-title:first-child {
+    margin-top: 0;
+  }
+  
+  .section-title .icon {
+    font-size: 14pt;
+  }
+  
+  /* 原文区块 */
+  .essay-text {
+    background: #f8faf9;
+    border-left: 4px solid #5b8a72;
+    border-radius: 0 12px 12px 0;
+    padding: 18px 22px;
+    font-family: 'Noto Serif SC', serif;
+    font-size: 12.5pt;
+    line-height: 2.15;
+    color: #333;
+    position: relative;
+  }
+  
+  .essay-text::before {
+    content: '"';
+    position: absolute;
+    top: 8px;
+    left: 10px;
+    font-size: 40pt;
+    color: #5b8a72;
+    opacity: 0.25;
+    font-family: Georgia, serif;
+    line-height: 1;
+  }
+  
+  .essay-text .indent {
+    padding-left: 1.5em;
+  }
+  
+  /* 出处赏析 */
+  .analysis-box {
+    background: #fff;
+    border: 1px solid #e8f0ec;
+    border-radius: 12px;
+    padding: 14px 18px;
+  }
+  
+  .analysis-box .label {
+    font-size: 10pt;
+    font-weight: 700;
+    color: #5b8a72;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+  }
+  
+  .analysis-box .text {
+    font-size: 11pt;
+    line-height: 1.85;
+    color: #555;
+  }
+  
+  .analysis-box + .analysis-box {
+    margin-top: 10px;
+  }
+  
+  /* 好词好句 */
+  .highlights-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  
+  .highlight-box {
+    background: linear-gradient(135deg, #f0f7f4 0%, #e8f5ec 100%);
+    border-radius: 12px;
+    padding: 14px 16px;
+  }
+  
+  .highlight-box .box-title {
+    font-size: 9.5pt;
+    font-weight: 700;
+    color: #5b8a72;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  
+  .highlight-box .box-title .emoji {
+    font-size: 13pt;
+  }
+  
+  .word-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  
+  .word-tag {
+    background: #5b8a72;
+    color: #fff;
+    font-size: 10pt;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-weight: 700;
+  }
+  
+  .highlight-box .sentence {
+    font-size: 11pt;
+    line-height: 1.85;
+    color: #444;
+    font-style: italic;
+  }
+  
+  /* 写作应用 */
+  .writing-section {
+    background: #fffbf0;
+    border: 1px solid #f0e8cc;
+    border-radius: 12px;
+    padding: 15px 18px;
+    margin-top: 12px;
+  }
+  
+  .writing-section .box-title {
+    font-size: 10pt;
+    font-weight: 700;
+    color: #c49a3a;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  
+  .writing-section .box-title .emoji {
+    font-size: 13pt;
+  }
+  
+  .writing-section .technique {
+    font-size: 11pt;
+    font-weight: 700;
+    color: #7a5c00;
+    margin-bottom: 6px;
+  }
+  
+  .writing-section .explain {
+    font-size: 11pt;
+    line-height: 1.8;
+    color: #555;
+    margin-bottom: 10px;
+  }
+  
+  .example-block {
+    background: #fff;
+    border-radius: 8px;
+    padding: 10px 14px;
+    border-left: 3px solid #c49a3a;
+    margin-bottom: 8px;
+  }
+  
+  .example-block:last-child {
+    margin-bottom: 0;
+  }
+  
+  .example-block .ex-label {
+    font-size: 9.5pt;
+    font-weight: 700;
+    color: #c49a3a;
+    margin-bottom: 4px;
+  }
+  
+  .example-block .ex-text {
+    font-size: 10.5pt;
+    line-height: 1.85;
+    color: #666;
+  }
+  
+  /* 底部 */
+  .card-footer {
+    background: #f8faf9;
+    padding: 14px 38px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #e8f0ec;
+  }
+  
+  .footer-left {
+    font-size: 9.5pt;
+    color: #999;
+    letter-spacing: 1px;
+  }
+  
+  .footer-right {
+    font-size: 9.5pt;
+    color: #5b8a72;
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+  
+  @media print {
+    body {
+      background: #fff;
+      padding: 0;
+    }
+    .card {
+      box-shadow: none;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <!-- 顶部 -->
+  <div class="card-top">
+    <div class="card-label">📖 每日美文阅读 · 第1期</div>
+    <div class="card-title">《背影》节选</div>
+    <div class="card-author">朱自清 · 近代散文经典</div>
+  </div>
+  
+  <!-- 内容 -->
+  <div class="card-body">
+    
+    <!-- 原文 -->
+    <div class="section-title">
+      <span class="icon">📜</span>
+      <span>原文选读</span>
+    </div>
+    <div class="essay-text">
+      我与父亲不相见已二年余了，我最不能忘记的是他的背影。<br><br>
+      <span class="indent">那年冬天，祖母死了，父亲的差使也交卸了，正是祸不单行的日子。我从北京到徐州，打算跟着父亲奔丧回家。到徐州见着父亲，看见满院狼藉的东西，又想起祖母，不禁簌簌地流下眼泪。父亲说："事已如此，不必难过，好在天无绝人之路！"</span><br><br>
+      <span class="indent">回家变卖典质，父亲还了亏空；又借钱办了丧事。这些日子，家中光景很是惨淡，一半为了丧事，一半为了父亲赋闲。丧事完毕，父亲要到南京谋事，我也要回北京念书，我们便同行。</span><br><br>
+      <span class="indent">到南京时，有朋友约去游逛，勾留了一日；第二日上午便须渡江到浦口，下午上车北去。父亲因为事忙，本已说定不送我，叫旅馆里一个熟识的茶房陪我同去。他再三嘱咐茶房，甚是仔细。但他终于不放心，怕茶房不妥帖；颇踌躇了一会。其实我那年已二十岁，北京已来往过两三次，是没有什么要紧的了。他踌躇了一会，终于决定还是自己送我去。我再三劝他不必去；他只是说："不要紧，他们去不好！"</span><br><br>
+      <span class="indent">我们过了江，进了车站。我买票，他忙着照看行李。行李太多了，得向脚夫行些小费才可过去。他便又忙着和他们讲价钱。我那时真是聪明过分，总觉他说话不大漂亮，非自己插嘴不可。但他终于讲定了价钱；就送我进场。他给我拣定了靠车门的一张椅子；我将他给我做的紫毛大衣铺好座位。他嘱我路上小心，夜里要警醒些，不要受凉。又嘱托茶房好好照应我。我心里暗笑他的迂；他们又认什么差使呢？我现在想想，我那时真是太聪明了。</span>
+    </div>
+    
+    <!-- 出处赏析 -->
+    <div class="section-title">
+      <span class="icon">🔍</span>
+      <span>出处与赏析</span>
+    </div>
+    <div class="analysis-box">
+      <div class="label">📚 背景</div>
+      <div class="text">朱自清（1898-1948），中国现代散文家、诗人。《背影》写于1925年，是其散文的巅峰之作。文章描写了父亲送儿子去车站的平凡场景，表达了深厚的父子之情，被誉为"写人叙事的经典范本"。</div>
+    </div>
+    <div class="analysis-box">
+      <div class="label">✨ 赏析</div>
+      <div class="text">本文最大的写作特点是<strong>以小见大</strong>——不写惊天动地的大事，而选取父亲买橘子这个微小场景，通过"背影"这一独特的视觉符号，将父爱具象化。文章开头"我与父亲不相见已二年余了"奠定感伤基调；叙事中穿插对父亲动作的细腻描写（踌躇、嘱托、拣椅子），真实而动人。结尾"聪明过分"的自我反省，是情感的升华。</div>
+    </div>
+    
+    <!-- 好词好句 -->
+    <div class="section-title">
+      <span class="icon">🌟</span>
+      <span>好词好句</span>
+    </div>
+    <div class="highlights-grid">
+      <div class="highlight-box">
+        <div class="box-title"><span class="emoji">💎</span> 重点词语</div>
+        <div class="word-list">
+          <span class="word-tag">狼藉</span>
+          <span class="word-tag">赋闲</span>
+          <span class="word-tag">勾留</span>
+          <span class="word-tag">踌躇</span>
+          <span class="word-tag">妥帖</span>
+          <span class="word-tag">紫毛大衣</span>
+          <span class="word-tag">警醒</span>
+        </div>
+      </div>
+      <div class="highlight-box">
+        <div class="box-title"><span class="emoji">✨</span> 精彩句子</div>
+        <div class="sentence">"我看见他戴着黑布小帽，穿着黑布大马褂，深青布棉袍，蹒跚地走到铁道边，慢慢探身下去，尚不大难。可是他穿过铁道，要爬上那边月台，就不容易了。"<br><br>—— 白描手法，动作描写极为传神</div>
+      </div>
+    </div>
+    
+    <!-- 写作应用 -->
+    <div class="section-title">
+      <span class="icon">✍️</span>
+      <span>写作应用</span>
+    </div>
+    
+    <div class="writing-section">
+      <div class="box-title"><span class="emoji">💡</span> 技法一：以小见大</div>
+      <div class="explain">选取生活中的小事（送别、买橘子），通过细腻的观察和描写，传递深厚的情感。不需要轰轰烈烈，平凡细节最动人心。</div>
+      <div class="example-block">
+        <div class="ex-label">✏️ 仿写示例（《记一件温暖的小事》）：</div>
+        <div class="ex-text">
+          妈妈不太会发微信，却记得我爱吃红烧肉。每次我回家，她都早早站在路口张望，围裙还没来得及解，袖口沾着面粉。我到家时，她只说一句"回来啦"，然后转身进厨房忙活。那件沾着面粉的围裙，是我见过最美的样子。
+        </div>
+      </div>
+    </div>
+    
+    <div class="writing-section" style="margin-top: 10px;">
+      <div class="box-title"><span class="emoji">💡</span> 技法二：先抑后扬 / 情感反转</div>
+      <div class="explain">先写自己的不理解甚至厌烦（觉得父亲迂），后写回头看时的感动与愧疚，形成情感上的反差和张力。</div>
+      <div class="example-block">
+        <div class="ex-label">✏️ 仿写示例（《那个唠叨的人》）：</div>
+        <div class="ex-text">
+          小时候最烦奶奶的唠叨——"多穿点"、"别吃太快"、"早点睡"，日复一日，我总是敷衍地应着"知道了知道了"。直到那次她突然生病，我一个人守着空荡荡的房间，才发现那些唠叨，是我最珍贵的BGM。
+        </div>
+      </div>
+    </div>
+    
+  </div>
+  
+  <!-- 底部 -->
+  <div class="card-footer">
+    <div class="footer-left">📅 2026年3月21日 · 周六</div>
+    <div class="footer-right">🦞 大脑袋 · 每日美文阅读</div>
+  </div>
+</div>
+
+</body>
+</html>

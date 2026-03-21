@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>辩论手卡 - 第六组</title>
+<style>
+  @page {
+    size: A4;
+    margin: 15mm;
+  }
+  
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    background: #fff;
+  }
+  
+  /* 每人一页 */
+  .card-page {
+    page-break-after: always;
+    padding: 20px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .card-page:last-child {
+    page-break-after: avoid;
+  }
+  
+  /* 顶部标题栏 */
+  .card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #1a3a5c;
+    color: #fff;
+    padding: 12px 20px;
+    border-radius: 12px 12px 0 0;
+    margin-bottom: 0;
+  }
+  
+  .card-header .speaker {
+    font-size: 18pt;
+    font-weight: bold;
+    letter-spacing: 2px;
+  }
+  
+  .card-header .role {
+    font-size: 11pt;
+    opacity: 0.85;
+    background: rgba(255,255,255,0.15);
+    padding: 4px 12px;
+    border-radius: 20px;
+  }
+  
+  /* 内容区 */
+  .card-body {
+    flex: 1;
+    border: 2px solid #1a3a5c;
+    border-top: none;
+    border-radius: 0 0 12px 12px;
+    padding: 18px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  /* 核心论点 */
+  .main-argument {
+    background: #f0f5ff;
+    border-left: 5px solid #1a3a5c;
+    padding: 10px 15px;
+    border-radius: 0 8px 8px 0;
+    font-size: 12pt;
+    font-weight: bold;
+    color: #1a3a5c;
+    line-height: 1.7;
+  }
+  
+  /* 分区块 */
+  .section {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 10px 14px;
+  }
+  
+  .section-title {
+    font-size: 10pt;
+    font-weight: bold;
+    color: #c0392b;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+  }
+  
+  .section-content {
+    font-size: 11pt;
+    line-height: 1.9;
+    color: #333;
+  }
+  
+  .section-content li {
+    margin-bottom: 4px;
+    padding-left: 4px;
+  }
+  
+  /* 重点句 */
+  .key-quote {
+    background: #fff8e6;
+    border: 1px dashed #e6a800;
+    border-radius: 6px;
+    padding: 8px 14px;
+    font-size: 11pt;
+    color: #7a5c00;
+    line-height: 1.8;
+    font-style: italic;
+  }
+  
+  .key-quote strong {
+    color: #c0392b;
+    font-style: normal;
+  }
+  
+  /* 书中例子 */
+  .book-example {
+    background: #fafafa;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 8px 14px;
+    font-size: 10.5pt;
+    color: #555;
+    line-height: 1.8;
+  }
+  
+  .book-example .label {
+    font-weight: bold;
+    color: #1a3a5c;
+    font-size: 9.5pt;
+  }
+  
+  /* 反击句（自由辩论用） */
+  .counter-section {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .counter-item {
+    background: #fff;
+    border-left: 4px solid #e74c3c;
+    padding: 8px 14px;
+    border-radius: 0 6px 6px 0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    font-size: 11pt;
+    line-height: 1.7;
+    color: #333;
+  }
+  
+  .counter-item .num {
+    display: inline-block;
+    background: #e74c3c;
+    color: #fff;
+    font-size: 9pt;
+    font-weight: bold;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 18px;
+    margin-right: 8px;
+  }
+  
+  /* 结尾页 */
+  .card-footer {
+    margin-top: auto;
+    text-align: center;
+    padding-top: 12px;
+    border-top: 1px dashed #ccc;
+    font-size: 9pt;
+    color: #999;
+    letter-spacing: 1px;
+  }
+  
+  /* 备用资料包 */
+  .ref-block {
+    background: #f8f9fa;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 10px 14px;
+  }
+  
+  .ref-block table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 10pt;
+  }
+  
+  .ref-block th {
+    background: #1a3a5c;
+    color: #fff;
+    padding: 5px 8px;
+    text-align: left;
+  }
+  
+  .ref-block td {
+    padding: 4px 8px;
+    border-bottom: 1px solid #eee;
+    color: #444;
+  }
+  
+  .ref-block tr:last-child td {
+    border-bottom: none;
+  }
+  
+  @media print {
+    .card-page {
+      padding: 0;
+      min-height: auto;
+    }
+    
+    body {
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- ========== 一辩手卡 ========== -->
+<div class="card-page">
+  <div class="card-header">
+    <span class="speaker">王若凝</span>
+    <span class="role">一辩 · 开场陈词</span>
+  </div>
+  <div class="card-body">
+    
+    <div class="main-argument">
+      核心论点：骆驼祥子的悲剧，主要源于自身原因。<br>
+      <span style="font-size:10pt; font-weight:normal;">社会是舞台，选择才是剧本——祥子自己写了自己的结局。</span>
+    </div>
+    
+    <div class="section">
+      <div class="section-title">▶ 论点一：性格缺陷是根本原因</div>
+      <div class="section-content">
+        <ul>
+          <li>致命弱点：短视、固执、不懂反思</li>
+          <li>第一次买车后贪图高息，把钱借出去结果全被卷走</li>
+          <li><strong>这是社会逼他的，还是他自己选的？</strong></li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="section">
+      <div class="section-title">▶ 论点二：机会面前选择放弃</div>
+      <div class="section-content">
+        <ul>
+          <li>虎妞死后：小福子愿跟他走 → 放弃</li>
+          <li>曹先生愿收留他 → 拒绝</li>
+          <li>刘四爷车厂还开着 → 躺平</li>
+          <li>书里写："他没了心，心被人偷了"<br>
+          <strong>→ 那颗心，是社会偷走的，还是他自己弄丢的？</strong></li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="section">
+      <div class="section-title">▶ 论点三：现实对照</div>
+      <div class="section-content">
+        <ul>
+          <li>同样被当兵抢车 → 老马没彻底堕落</li>
+          <li>同样下岗失业 → 有人咬牙干下来了</li>
+          <li><strong>同样是人、同样是苦，为何有人站住、有人倒下？</strong></li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="key-quote">
+      🎤 结尾收束句：<br>
+      我方核心论点——外因通过内因起作用。祥子的悲剧，<strong>不是因为社会没给他机会，而是他在每个机会面前都做出了错误的选择。</strong>
+    </div>
+    
+    <div class="card-footer">第六组 · 王若凝 · 开场陈词</div>
+  </div>
+</div>
+
+<!-- ========== 二辩手卡 ========== -->
+<div class="card-page">
+  <div class="card-header">
+    <span class="speaker">何奕澄</span>
+    <span class="role">二辩 · 论点展开</span>
+  </div>
+  <div class="card-body">
+    
+    <div class="main-argument">
+      核心论点：祥子不会反思，同一个坑踩无数次，性格弱点导致悲剧。
+    </div>
+    
+    <div class="section">
+      <div class="section-title">▶ 性格问题一：一根筋，不会学习</div>
+      <div class="section-content">
+        <ul>
+          <li>三年辛苦买了第一辆车 → 不会珍惜</li>
+          <li>贪图便宜，连人带车被当兵的抓走</li>
+          <li>同样被抢 → 老马咬牙活着，祥子从此一蹶不振</li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="section">
+      <div class="section-title">▶ 性格问题二：消极认命，不求改变</div>
+      <div class="section-content">
+        <ul>
+          <li>三起三落：第一次被当兵的抓，第二次被孙侦探骗，第三次虎妞死</li>
+          <li><strong>每一次都没学到东西，下次还是一样！</strong></li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="section">
+      <div class="section-title">▶ 书中对比</div>
+      <div class="book-example">
+        <span class="label">老马：</span>老婆孩子饿死，没偷没骗，咬牙活着<br>
+        <span class="label">高妈：</span>穷人妇女，给祥子出过主意，祥子不听<br>
+        <span class="label">虎妞：</span>一个女人，照样撑起车厂<br>
+        <strong>→ 同样处境，不同选择，差别在自身！</strong>
+      </div>
+    </div>
+    
+    <div class="key-quote">
+      🎤 结尾反击句：<br>
+      对方说"被社会逼"——书里比祥子更惨的人多了，为什么只有他彻底堕落？<strong>因为他的性格有弱点：消极、认命、不上进。</strong>
+    </div>
+    
+    <div class="card-footer">第六组 · 何奕澄 · 论点展开</div>
+  </div>
+</div>
+
+<!-- ========== 三辩手卡 ========== -->
+<div class="card-page">
+  <div class="card-header">
+    <span class="speaker">楼亦颀</span>
+    <span class="role">三辩 · 预判反驳</span>
+  </div>
+  <div class="card-body">
+    
+    <div class="main-argument">
+      核心论点：对方"社会逼迫论"逻辑站不住脚，祥子有选择的时候都放弃了。
+    </div>
+    
+    <div class="section">
+      <div class="section-title">▶ 反驳一："所有人都没办法"？不！</div>
+      <div class="section-content">
+        <ul>
+          <li>老马：活下来了</li>
+          <li>曹先生：活下来了</li>
+          <li>虎妞：一个女人，能管车厂</li>
+          <li><strong>那个时代不是铁板一块，有人找到出路，"所有人被迫"是伪命题</strong></li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="section">
+      <div class="section-title">▶ 反驳二：堕落是渐进的，不是瞬间的</div>
+      <div class="section-content">
+        <ul>
+          <li>虎妞死 → 祥子还能拉车（没崩溃）</li>
+          <li>小福子死 → 才彻底崩溃</li>
+          <li><strong>为什么小福子死后才崩溃？不是社会变了，是他自己的心死了</strong></li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="section">
+      <div class="section-title">▶ 反驳三：机会就在眼前，他自己不要</div>
+      <div class="section-content">
+        <ul>
+          <li>小福子愿跟他走 → <strong>他不要</strong></li>
+          <li>曹先生让他回去 → <strong>他不去</strong></li>
+          <li>刘四爷给工作 → <strong>他嫌丢人</strong></li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="key-quote">
+      🎤 最强反击句：<br>
+      <strong>他自己把门关上了，怎么能怪社会把门锁死？</strong>
+    </div>
+    
+    <div class="card-footer">第六组 · 楼亦颀 · 预判反驳</div>
+  </div>
+</div>
+
+<!-- ========== 四辩手卡 ========== -->
+<div class="card-page">
+  <div class="card-header">
+    <span class="speaker">贝乐圣</span>
+    <span class="role">四辩 · 自由辩论</span>
+  </div>
+  <div class="card-body">
+    
+    <div class="main-argument">
+      核心：祥子有三次翻身机会，一次都没抓住——他自己不想站起来了。
+    </div>
+    
+    <div class="section">
+      <div class="section-title">▶ 反击句①：有人帮过他，他不听</div>
+      <div class="key-quote">
+        高妈给祥子出过攒钱的主意，手把手教他，是祥子自己不听！<br>
+        <strong>→ 有人想帮他，社会没有阻止，是祥子自己拒绝的</strong>
+      </div>
+    </div>
+    
+    <div class="section">
+      <div class="section-title">▶ 反击句②：社会没变，是他的心变了</div>
+      <div class="key-quote">
+        祥子第一次买车前，社会变好了吗？<strong>没有。</strong><br>
+        那时他还有梦想。社会没变，是祥子的心变了。
+      </div>
+    </div>
+    
+    <div class="section">
+      <div class="section-title">▶ 反击句③：三次机会，一次没抓住</div>
+      <div class="key-quote">
+        虎妞有钱（机会一）→ 曹先生收留（机会二）→ 小福子爱他（机会三）<br>
+        <strong>他抓住过哪一次？</strong>
+      </div>
+    </div>
+    
+    <div class="section">
+      <div class="section-title">▶ 反击句④：灵魂拷问</div>
+      <div class="key-quote" style="background:#fff0f0; border-color:#c0392b;">
+        <strong>一个人自己不想站起来了，别人能扶起来吗？</strong>
+      </div>
+    </div>
+    
+    <div class="card-footer">第六组 · 贝乐圣 · 自由辩论</div>
+  </div>
+</div>
+
+<!-- ========== 五辩手卡 ========== -->
+<div class="card-page">
+  <div class="card-header">
+    <span class="speaker">陈禹轩</span>
+    <span class="role">五辩 · 自由辩论</span>
+  </div>
+  <div class="card-body">
+    
+    <div class="main-argument">
+      核心：对方"社会逼迫论"要求对方举数据证明，同时指出祥子最大敌人是他自己。
+    </div>
+    
+    <div class="section">
+      <div class="section-title">▶ 反击句①：要求数据</div>
+      <div class="key-quote">
+        对方说"社会逼迫"——请问：<br>
+        那个年代有多少人变成了祥子？<br>
+        <strong>如果只有少数人，问题怎么能全怪社会？</strong>
+      </div>
+    </div>
+    
+    <div class="section">
+      <div class="section-title">▶ 反击句②：祥子最大敌人是自己</div>
+      <div class="key-quote">
+        他的消极、认命、不学习、不反思——<br>
+        <strong>这些是他自己养成的，不是社会塞给他的</strong>
+      </div>
+    </div>
+    
+    <div class="section">
+      <div class="section-title">▶ 反击句③：同样是苦，差别在哪？</div>
+      <div class="key-quote">
+        同样是苦日子：<br>
+        老马 → 咬牙活着<br>
+        祥子 → 彻底堕落<br>
+        <strong>差别在哪里？（等对方回答后接）在于选择，在于内心！</strong>
+      </div>
+    </div>
+    
+    <div class="section">
+      <div class="section-title">▶ 反击句④：最后的质问</div>
+      <div class="key-quote" style="background:#fff0f0; border-color:#c0392b;">
+        请对方回答：<br>
+        祥子最后一次堕落，是因为<strong>社会变了</strong>，还是因为他<strong>自己不想再努力了</strong>？
+      </div>
+    </div>
+    
+    <div class="card-footer">第六组 · 陈禹轩 · 自由辩论</div>
+  </div>
+</div>
+
+<!-- ========== 六辩手卡 ========== -->
+<div class="card-page">
+  <div class="card-header">
+    <span class="speaker">潘俊玮</span>
+    <span class="role">六辩 · 总结陈词</span>
+  </div>
+  <div class="card-body">
+    
+    <div class="main-argument">
+      核心论点：同情不等于免责。祥子是一点一点放弃自己的，每一步都是自己的脚印。
+    </div>
+    
+    <div class="section">
+      <div class="section-title">▶ 堕落全过程（时间线）</div>
+      <div class="section-content">
+        <ul>
+          <li>不接受虎妞的钱 → 依附不自立</li>
+          <li>挥霍虎妞遗产 → 自毁根基</li>
+          <li>小福子愿跟他走 → <strong>他不要</strong></li>
+          <li>曹先生让他回去 → <strong>他不去</strong></li>
+          <li>彻底躺平 → 占朋友便宜、抽烟、赌博</li>
+        </ul>
+        <strong style="color:#c0392b; font-size:11pt;">→ 一点一点放弃自己，每一步都是他的脚印</strong>
+      </div>
+    </div>
+    
+    <div class="section">
+      <div class="section-title">▶ 对方可能说的话及拆解</div>
+      <div class="section-content">
+        <ul>
+          <li>❌ "社会逼迫" → ✅ <strong>有人想拉他，他自己甩开了</strong></li>
+          <li>❌ "旧社会太黑暗" → ✅ <strong>老马没变祥子，虎妞撑起车厂</strong></li>
+          <li>❌ "他没办法" → ✅ <strong>小福子死之前他还能拉车，是心先死的</strong></li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="key-quote">
+      🎤 全文最高潮句：<br>
+      <strong>刘四爷给他工作机会，他嫌丢人；曹先生愿意收留，他不愿意回；小福子爱他，他选择逃避。每一次有人想拉他一把，他都自己甩开了。</strong>
+    </div>
+    
+    <div class="section">
+      <div class="section-title">▶ 结尾升华</div>
+      <div class="key-quote" style="background:#e8f5e9; border-color:#27ae60;">
+        老舍先生想告诉我们：<br>
+        <strong>人如果失去内心的力量，外面再好也救不了你。</strong><br><br>
+        祥子的悲剧，是性格的悲剧，是选择的悲剧，<strong>是自身的悲剧。</strong>
+      </div>
+    </div>
+    
+    <div class="card-footer">第六组 · 潘俊玮 · 总结陈词</div>
+  </div>
+</div>
+
+<!-- ========== 备用资料总卡（自由辩专用） ========== -->
+<div class="card-page">
+  <div class="card-header" style="background:#27ae60;">
+    <span class="speaker">📚 备用资料包</span>
+    <span class="role">自由辩论 · 全员可用</span>
+  </div>
+  <div class="card-body">
+    
+    <div class="ref-block">
+      <table>
+        <tr>
+          <th>人物</th>
+          <th>身份</th>
+          <th>处境</th>
+          <th>选择</th>
+        </tr>
+        <tr>
+          <td>高妈</td>
+          <td>穷人妇女</td>
+          <td>同样社会底层</td>
+          <td>主动帮祥子想办法</td>
+        </tr>
+        <tr>
+          <td>老马</td>
+          <td>拉车老人</td>
+          <td>老婆孩子饿死</td>
+          <td>没偷没骗，咬牙活着</td>
+        </tr>
+        <tr>
+          <td>曹先生</td>
+          <td>教书先生</td>
+          <td>被政治迫害</td>
+          <td>重新站起来</td>
+        </tr>
+        <tr>
+          <td>虎妞</td>
+          <td>车厂老板女儿</td>
+          <td>女人在旧社会</td>
+          <td>撑起整个车厂</td>
+        </tr>
+        <tr>
+          <td>小福子</td>
+          <td>贫民女儿</td>
+          <td>比祥子惨十倍</td>
+          <td>最后自尽</td>
+        </tr>
+      </table>
+    </div>
+    
+    <div class="key-quote" style="margin-top:15px;">
+      <strong>核心反驳句：</strong>同样是人，祥子有选择的时候都放弃了，其他人没有——<strong>差别在哪里？在于自身！</strong>
+    </div>
+    
+    <div class="section">
+      <div class="section-title">▶ 对方可能引用的原文</div>
+      <div class="section-content">
+        <ul>
+          <li>对方可能说祥子被当兵的抓走 → <strong>老马也被抢过车，为什么没变？</strong></li>
+          <li>对方可能说祥子被孙侦探骗 → <strong>曹先生也被迫害过，为什么能重新开始？</strong></li>
+          <li>对方可能说旧社会黑暗 → <strong>虎妞管车厂、刘四爷开厂——有人还是在努力活着</strong></li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="key-quote" style="background:#fff0f0; border-color:#c0392b; margin-top:10px;">
+      <strong>杀手锏问题：</strong><br>
+      祥子最后一次彻底堕落（小福子死后），是因为<strong>社会变了吗？</strong><br>
+      还是因为他<strong>自己不想再努力了？</strong>
+    </div>
+    
+    <div class="card-footer">第六组 · 自由辩论备用</div>
+  </div>
+</div>
+
+</body>
+</html>

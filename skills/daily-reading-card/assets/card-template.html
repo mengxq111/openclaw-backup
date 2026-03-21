@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>每日美文阅读 · 第{{issue}}期</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Noto+Sans+SC:wght@400;700&display=swap');
+  
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  
+  body {
+    font-family: 'Noto Sans SC', 'PingFang SC', sans-serif;
+    background: #f0f4f8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+  }
+  
+  .card {
+    width: 720px;
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.12);
+    overflow: hidden;
+  }
+  
+  .card-top {
+    background: linear-gradient(135deg, #5b8a72 0%, #7cb896 50%, #a8d5ba 100%);
+    padding: 28px 38px 24px;
+    position: relative;
+  }
+  
+  .card-top::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 0;
+    right: 0;
+    height: 30px;
+    background: #fff;
+    border-radius: 50% 50% 0 0;
+  }
+  
+  .card-label {
+    font-size: 10pt;
+    letter-spacing: 3px;
+    color: rgba(255,255,255,0.85);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    font-weight: 700;
+  }
+  
+  .card-title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 22pt;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 4px;
+  }
+  
+  .card-author {
+    font-size: 11pt;
+    color: rgba(255,255,255,0.9);
+  }
+  
+  .card-body {
+    padding: 30px 38px 28px;
+  }
+  
+  .section-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 10pt;
+    font-weight: 700;
+    color: #5b8a72;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    margin-top: 20px;
+  }
+  
+  .section-title:first-child { margin-top: 0; }
+  .section-title .icon { font-size: 14pt; }
+  
+  .essay-text {
+    background: #f8faf9;
+    border-left: 4px solid #5b8a72;
+    border-radius: 0 12px 12px 0;
+    padding: 18px 22px;
+    font-family: 'Noto Serif SC', serif;
+    font-size: 12.5pt;
+    line-height: 2.15;
+    color: #333;
+    position: relative;
+  }
+  
+  .essay-text::before {
+    content: '"';
+    position: absolute;
+    top: 8px;
+    left: 10px;
+    font-size: 40pt;
+    color: #5b8a72;
+    opacity: 0.25;
+    font-family: Georgia, serif;
+    line-height: 1;
+  }
+  
+  .essay-text .indent {
+    padding-left: 1.5em;
+  }
+  
+  .analysis-box {
+    background: #fff;
+    border: 1px solid #e8f0ec;
+    border-radius: 12px;
+    padding: 14px 18px;
+  }
+  
+  .analysis-box .label {
+    font-size: 10pt;
+    font-weight: 700;
+    color: #5b8a72;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+  }
+  
+  .analysis-box .text {
+    font-size: 11pt;
+    line-height: 1.85;
+    color: #555;
+  }
+  
+  .analysis-box + .analysis-box { margin-top: 10px; }
+  
+  .highlights-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  
+  .highlight-box {
+    background: linear-gradient(135deg, #f0f7f4 0%, #e8f5ec 100%);
+    border-radius: 12px;
+    padding: 14px 16px;
+  }
+  
+  .highlight-box .box-title {
+    font-size: 9.5pt;
+    font-weight: 700;
+    color: #5b8a72;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  
+  .highlight-box .box-title .emoji { font-size: 13pt; }
+  
+  .word-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  
+  .word-tag {
+    background: #5b8a72;
+    color: #fff;
+    font-size: 10pt;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-weight: 700;
+  }
+  
+  .highlight-box .sentence {
+    font-size: 11pt;
+    line-height: 1.85;
+    color: #444;
+    font-style: italic;
+  }
+  
+  .writing-section {
+    background: #fffbf0;
+    border: 1px solid #f0e8cc;
+    border-radius: 12px;
+    padding: 15px 18px;
+    margin-top: 12px;
+  }
+  
+  .writing-section .box-title {
+    font-size: 10pt;
+    font-weight: 700;
+    color: #c49a3a;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  
+  .writing-section .box-title .emoji { font-size: 13pt; }
+  
+  .writing-section .explain {
+    font-size: 11pt;
+    line-height: 1.8;
+    color: #555;
+    margin-bottom: 10px;
+  }
+  
+  .example-block {
+    background: #fff;
+    border-radius: 8px;
+    padding: 10px 14px;
+    border-left: 3px solid #c49a3a;
+    margin-bottom: 8px;
+  }
+  
+  .example-block:last-child { margin-bottom: 0; }
+  
+  .example-block .ex-label {
+    font-size: 9.5pt;
+    font-weight: 700;
+    color: #c49a3a;
+    margin-bottom: 4px;
+  }
+  
+  .example-block .ex-text {
+    font-size: 10.5pt;
+    line-height: 1.85;
+    color: #666;
+  }
+  
+  .card-footer {
+    background: #f8faf9;
+    padding: 14px 38px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #e8f0ec;
+  }
+  
+  .footer-left { font-size: 9.5pt; color: #999; letter-spacing: 1px; }
+  .footer-right { font-size: 9.5pt; color: #5b8a72; font-weight: 700; letter-spacing: 1px; }
+  
+  @media print {
+    body { background: #fff; padding: 0; }
+    .card { box-shadow: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <div class="card-top">
+    <div class="card-label">📖 每日美文阅读 · 第{{issue}}期</div>
+    <div class="card-title">{{title}}</div>
+    <div class="card-author">{{author}}</div>
+  </div>
+  
+  <div class="card-body">
+    
+    <div class="section-title">
+      <span class="icon">📜</span>
+      <span>原文选读</span>
+    </div>
+    <div class="essay-text">{{essay_content}}</div>
+    
+    <div class="section-title">
+      <span class="icon">🔍</span>
+      <span>出处与赏析</span>
+    </div>
+    <div class="analysis-box">
+      <div class="label">📚 背景</div>
+      <div class="text">{{background}}</div>
+    </div>
+    <div class="analysis-box">
+      <div class="label">✨ 赏析</div>
+      <div class="text">{{appreciation}}</div>
+    </div>
+    
+    <div class="section-title">
+      <span class="icon">🌟</span>
+      <span>好词好句</span>
+    </div>
+    <div class="highlights-grid">
+      <div class="highlight-box">
+        <div class="box-title"><span class="emoji">💎</span> 重点词语</div>
+        <div class="word-list">{{vocabulary_tags}}</div>
+      </div>
+      <div class="highlight-box">
+        <div class="box-title"><span class="emoji">✨</span> 精彩句子</div>
+        <div class="sentence">{{best_sentence}}</div>
+      </div>
+    </div>
+    
+    <div class="section-title">
+      <span class="icon">✍️</span>
+      <span>写作应用</span>
+    </div>
+    {{writing_examples}}
+    
+  </div>
+  
+  <div class="card-footer">
+    <div class="footer-left">{{date}} · 周{{day_of_week}}</div>
+    <div class="footer-right">🦞 大脑袋 · 每日美文阅读</div>
+  </div>
+</div>
+
+</body>
+</html>
