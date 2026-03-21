@@ -39,7 +39,8 @@ Generates a daily beautiful HTML reading card for a 初中一年级 (Grade 7) st
 
 ## Output Location
 
-`/Users/wowo/Documents/学习辅导/语文/阅读赏析/每日美文_卡片.html`
+`/Users/wowo/Documents/学习辅导/语文/阅读赏析/每日美文_YYYYMMDD.html`
+Example: `/Users/wowo/Documents/学习辅导/语文/阅读赏析/每日美文_20260322.html`
 
 ## Essay Selection Strategy
 
