@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>每日一题 · 第{{issue}}期</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: #f0f4f0;
+    display: flex;
+    justify-content: center;
+    padding: 20px 0;
+  }
+  .card {
+    width: 720px;
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(74,127,181,0.15);
+    overflow: hidden;
+  }
+  .header {
+    background: linear-gradient(135deg, #4a7fb5, #5a8fc7);
+    color: white;
+    padding: 18px 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .header-left .label {
+    font-size: 13px;
+    opacity: 0.9;
+    margin-bottom: 2px;
+  }
+  .header-left .issue {
+    font-size: 22px;
+    font-weight: 700;
+  }
+  .header-right {
+    text-align: right;
+  }
+  .header-right .date {
+    font-size: 13px;
+    opacity: 0.9;
+  }
+  .header-right .subject {
+    font-size: 14px;
+    margin-top: 2px;
+  }
+  .section {
+    padding: 18px 28px;
+    border-bottom: 1px solid #e8f0ec;
+  }
+  .section:last-child { border-bottom: none; }
+  .section-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #4a7fb5;
+    margin-bottom: 12px;
+  }
+  .tag {
+    display: inline-block;
+    background: #e8f0f8;
+    color: #4a7fb5;
+    font-size: 12px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+  }
+  .problem-text {
+    font-size: 15px;
+    line-height: 1.9;
+    color: #333;
+  }
+  .problem-text p { margin-bottom: 8px; }
+  
+  /* ===== 解题区域 ===== */
+  .answer-area {
+    background: #fafcff;
+    border: 2px dashed #4a7fb5;
+    border-radius: 10px;
+    min-height: 200px;
+    margin-top: 12px;
+    padding: 16px;
+    position: relative;
+  }
+  .answer-area::before {
+    content: "✏️ 在此作答";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #aaa;
+    font-size: 16px;
+    opacity: 0.5;
+    pointer-events: none;
+  }
+  .answer-lines {
+    position: relative;
+    height: 160px;
+    margin-top: 10px;
+  }
+  .answer-line {
+    border-bottom: 1px solid #ddd;
+    height: 32px;
+  }
+  
+  /* ===================== */
+  
+  .hint-box {
+    background: #f7fafc;
+    border-left: 4px solid #4a7fb5;
+    padding: 12px 16px;
+    border-radius: 0 8px 8px 0;
+    font-size: 14px;
+    line-height: 1.8;
+    color: #555;
+  }
+  .hint-box .hint-label {
+    font-weight: 700;
+    color: #4a7fb5;
+    margin-bottom: 4px;
+  }
+  
+  /* 答案折叠区 */
+  .solution-toggle {
+    background: #f0faf4;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .solution-header {
+    background: #4a7fb5;
+    color: white;
+    padding: 10px 16px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .solution-header::after {
+    content: "▼ 点击展开答案";
+    font-size: 12px;
+    opacity: 0.8;
+  }
+  .solution-content {
+    display: none;
+    padding: 16px;
+    background: white;
+  }
+  .solution-content.show {
+    display: block;
+  }
+  .answer-text {
+    font-size: 14px;
+    line-height: 2;
+    color: #333;
+  }
+  .answer-text .final-answer {
+    display: inline-block;
+    background: #4a7fb5;
+    color: white;
+    font-weight: 700;
+    padding: 2px 10px;
+    border-radius: 6px;
+    margin-top: 4px;
+  }
+  
+  /* 底部 */
+  .footer {
+    background: #f7fafc;
+    padding: 12px 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    color: #999;
+  }
+</style>
+<script>
+function toggleSolution() {
+  var content = document.querySelector('.solution-content');
+  var header = document.querySelector('.solution-header');
+  if (content.classList.contains('show')) {
+    content.classList.remove('show');
+    header.innerHTML = '✅ 答案与解析 <span style="font-weight:normal;opacity:0.8;font-size:12px">▼ 点击展开</span>';
+  } else {
+    content.classList.add('show');
+    header.innerHTML = '✅ 答案与解析 <span style="font-weight:normal;opacity:0.8;font-size:12px">▲ 点击收起</span>';
+  }
+}
+</script>
+</head>
+<body>
+<div class="card">
+  <div class="header">
+    <div class="header-left">
+      <div class="label">📐 每日一题 · 数学</div>
+      <div class="issue">第 {{issue}} 期</div>
+    </div>
+    <div class="header-right">
+      <div class="date">{{date}} {{day_of_week}}</div>
+      <div class="subject">★ 七年级下 · 浙教版</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="tag">🏷️ {{topic}}</div>
+    <div class="section-title">📝 今日题目</div>
+    <div class="problem-text">
+      {{problem_content}}
+    </div>
+    <!-- 解题区域：留白给窝窝作答 -->
+    <div class="answer-area">
+      <div class="answer-lines">
+        <div class="answer-line"></div>
+        <div class="answer-line"></div>
+        <div class="answer-line"></div>
+        <div class="answer-line"></div>
+        <div class="answer-line"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">💡 思路提示</div>
+    <div class="hint-box">
+      <div class="hint-label">解题关键：</div>
+      {{hint_content}}
+    </div>
+  </div>
+
+  <!-- 答案折叠区：做完再对 -->
+  <div class="section">
+    <div class="solution-toggle">
+      <div class="solution-header" onclick="toggleSolution()">✅ 答案与解析</div>
+      <div class="solution-content">
+        <div class="answer-text">
+          {{solution_content}}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <span>🦞 大脑袋 · 数学每日一题</span>
+    <span>杭州中考高频考点 · 七年级下</span>
+  </div>
+</div>
+</body>
+</html>
