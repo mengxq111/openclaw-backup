@@ -5,6 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>每日美文阅读 · 第{{issue}}期</title>
 <style>
+  @page {
+    size: 720px 1200px;
+    margin: 0;
+  }
+
   @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Noto+Sans+SC:wght@400;700&display=swap');
   
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -14,9 +19,10 @@
     background: #f0f4f8;
     display: flex;
     justify-content: center;
-    align-items: center;
-    min-height: 100vh;
+    align-items: flex-start;
     padding: 20px;
+    width: 720px;
+    min-height: 100vh;
   }
   
   .card {
@@ -25,6 +31,7 @@
     border-radius: 20px;
     box-shadow: 0 8px 40px rgba(0,0,0,0.12);
     overflow: hidden;
+    flex-shrink: 0;
   }
   
   .card-top {
@@ -45,7 +52,7 @@
   }
   
   .card-label {
-    font-size: 10pt;
+    font-size: 12pt;
     letter-spacing: 3px;
     color: rgba(255,255,255,0.85);
     text-transform: uppercase;
@@ -55,14 +62,14 @@
   
   .card-title {
     font-family: 'Noto Serif SC', serif;
-    font-size: 22pt;
+    font-size: 26pt;
     font-weight: 700;
     color: #fff;
     margin-bottom: 4px;
   }
   
   .card-author {
-    font-size: 11pt;
+    font-size: 13pt;
     color: rgba(255,255,255,0.9);
   }
   
@@ -74,7 +81,7 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    font-size: 10pt;
+    font-size: 12pt;
     font-weight: 700;
     color: #5b8a72;
     letter-spacing: 2px;
@@ -84,16 +91,16 @@
   }
   
   .section-title:first-child { margin-top: 0; }
-  .section-title .icon { font-size: 14pt; }
+  .section-title .icon { font-size: 16pt; }
   
   .essay-text {
     background: #f8faf9;
     border-left: 4px solid #5b8a72;
     border-radius: 0 12px 12px 0;
-    padding: 18px 22px;
+    padding: 20px 26px;
     font-family: 'Noto Serif SC', serif;
-    font-size: 12.5pt;
-    line-height: 2.15;
+    font-size: 15pt;
+    line-height: 2.2;
     color: #333;
     position: relative;
   }
@@ -118,11 +125,11 @@
     background: #fff;
     border: 1px solid #e8f0ec;
     border-radius: 12px;
-    padding: 14px 18px;
+    padding: 16px 20px;
   }
   
   .analysis-box .label {
-    font-size: 10pt;
+    font-size: 12pt;
     font-weight: 700;
     color: #5b8a72;
     letter-spacing: 1px;
@@ -130,8 +137,8 @@
   }
   
   .analysis-box .text {
-    font-size: 11pt;
-    line-height: 1.85;
+    font-size: 13pt;
+    line-height: 1.9;
     color: #555;
   }
   
@@ -146,21 +153,21 @@
   .highlight-box {
     background: linear-gradient(135deg, #f0f7f4 0%, #e8f5ec 100%);
     border-radius: 12px;
-    padding: 14px 16px;
+    padding: 16px 18px;
   }
   
   .highlight-box .box-title {
-    font-size: 9.5pt;
+    font-size: 11pt;
     font-weight: 700;
     color: #5b8a72;
     letter-spacing: 1px;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
     display: flex;
     align-items: center;
     gap: 5px;
   }
   
-  .highlight-box .box-title .emoji { font-size: 13pt; }
+  .highlight-box .box-title .emoji { font-size: 15pt; }
   
   .word-list {
     display: flex;
@@ -171,15 +178,15 @@
   .word-tag {
     background: #5b8a72;
     color: #fff;
-    font-size: 10pt;
-    padding: 3px 10px;
+    font-size: 12pt;
+    padding: 4px 12px;
     border-radius: 20px;
     font-weight: 700;
   }
   
   .highlight-box .sentence {
-    font-size: 11pt;
-    line-height: 1.85;
+    font-size: 13pt;
+    line-height: 1.9;
     color: #444;
     font-style: italic;
   }
@@ -188,12 +195,12 @@
     background: #fffbf0;
     border: 1px solid #f0e8cc;
     border-radius: 12px;
-    padding: 15px 18px;
+    padding: 16px 20px;
     margin-top: 12px;
   }
   
   .writing-section .box-title {
-    font-size: 10pt;
+    font-size: 12pt;
     font-weight: 700;
     color: #c49a3a;
     letter-spacing: 1px;
@@ -203,11 +210,11 @@
     gap: 5px;
   }
   
-  .writing-section .box-title .emoji { font-size: 13pt; }
+  .writing-section .box-title .emoji { font-size: 15pt; }
   
   .writing-section .explain {
-    font-size: 11pt;
-    line-height: 1.8;
+    font-size: 12pt;
+    line-height: 1.85;
     color: #555;
     margin-bottom: 10px;
   }
@@ -215,7 +222,7 @@
   .example-block {
     background: #fff;
     border-radius: 8px;
-    padding: 10px 14px;
+    padding: 12px 16px;
     border-left: 3px solid #c49a3a;
     margin-bottom: 8px;
   }
@@ -223,15 +230,15 @@
   .example-block:last-child { margin-bottom: 0; }
   
   .example-block .ex-label {
-    font-size: 9.5pt;
+    font-size: 11pt;
     font-weight: 700;
     color: #c49a3a;
     margin-bottom: 4px;
   }
   
   .example-block .ex-text {
-    font-size: 10.5pt;
-    line-height: 1.85;
+    font-size: 12.5pt;
+    line-height: 1.9;
     color: #666;
   }
   
@@ -244,11 +251,11 @@
     border-top: 1px solid #e8f0ec;
   }
   
-  .footer-left { font-size: 9.5pt; color: #999; letter-spacing: 1px; }
-  .footer-right { font-size: 9.5pt; color: #5b8a72; font-weight: 700; letter-spacing: 1px; }
+  .footer-left { font-size: 11pt; color: #999; letter-spacing: 1px; }
+  .footer-right { font-size: 11pt; color: #5b8a72; font-weight: 700; letter-spacing: 1px; }
   
   @media print {
-    body { background: #fff; padding: 0; }
+    body { background: #fff; padding: 0; width: 720px; }
     .card { box-shadow: none; }
   }
 </style>

@@ -11,7 +11,7 @@
 
 - 昵称：大牙
 - 是窝窝的爸爸，主要负责和窝窝学习相关的事务沟通
-- 飞书沟通（有飞书，但群机器人待配置）
+- 飞书沟通：已配置 main / study / xiaonaidong 三个机器人，群机器人正常
 
 ## 关于窝窝（女儿）
 
@@ -26,7 +26,65 @@
 - 作业批改：收到图片可OCR识别 + AI批改（飞书图片API已通）
 - 薄弱点追踪：窝窝数学档案.md 持续更新
 - 针对性出题：根据薄弱点生成专项练习
-- 数学每日一题：已加入定时任务（每天11点发群）
+- 数学每日一题：已加入定时任务（每天15:30发飞书群）
+
+## ⚠️ Cron Job 最佳实践（经验教训，2026-03-22）
+
+### 核心原则：发送飞书消息 → 必须用 sessionTarget: "main"
+
+**已知限制：isolated session 没有 exec 权限**
+- ❌ 不能运行 `openclaw message send`
+- ❌ 不能运行 Python / shell 命令
+- ❌ 不能生成图片
+- ✅ 可以用 feishu_chat 等插件工具（但参数要正确）
+
+### 飞书消息发送方式
+
+| 方式 | 适用场景 | 需要 exec |
+|------|----------|-----------|
+| `openclaw message send --channel feishu --target <chat_id> --media <file>` | 有图片/文件时 | ✅ 必须 |
+| `openclaw message send --channel feishu --target <chat_id> --message "..."` | 纯文本消息 | ✅ 必须 |
+| feishu_chat 工具 | isolated session（仅文本） | ❌ 不需要 |
+| feishu_chat 工具 + media | isolated session（需确认参数格式） | ❌ 不需要 |
+
+### 新建 Cron Job 检查清单
+
+**Step 1：确定发送目标**
+- [ ] 需要发送飞书消息/图片 → 走 `sessionTarget: "main"` + `systemEvent`
+- [ ] 仅内部检查/日志 → 可以用 `isolated` + `agentTurn`
+
+**Step 2：配置模板**
+```json
+{
+  "sessionTarget": "main",
+  "payload": { "kind": "systemEvent", "text": "任务描述..." },
+  "delivery": { "mode": "none" }
+}
+```
+
+**Step 3：立即手动触发测试**
+```bash
+openclaw cron run <jobId>
+```
+- 确认能成功发送飞书消息
+- 确认消息格式正确
+- 再启用正式调度
+
+### 常见错误
+
+1. **"Delivering to Feishu requires target <chatId>"**
+   → isolated session 用 feishu_chat 工具时缺少 chat_id 参数
+
+2. **HTTP 400 / Create card request failed**
+   → 飞书 API 参数错误，通常是 chat_id 或 msg_type 格式问题
+
+3. **exec 命令无响应**
+   → 很可能是在 isolated session 中执行，立即检查 sessionTarget 配置
+
+### 飞书群组 ID（重要！）
+
+- 窝窝学习群：`oc_f89abf0190161756b79dd73c8c5eab8a`
+- 发消息必须用 `--account main` 指定 main 机器人
 
 ## 2026-03-22 问题：飞书 main 机器人无响应
 

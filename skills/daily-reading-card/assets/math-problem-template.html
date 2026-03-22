@@ -5,6 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>每日一题 · 第{{issue}}期</title>
 <style>
+  @page {
+    size: 720px 1100px;
+    margin: 0;
+  }
+
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
     font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
@@ -12,6 +17,7 @@
     display: flex;
     justify-content: center;
     padding: 20px 0;
+    width: 720px;
   }
   .card {
     width: 720px;
@@ -19,37 +25,38 @@
     border-radius: 16px;
     box-shadow: 0 4px 16px rgba(91,138,114,0.15);
     overflow: hidden;
+    flex-shrink: 0;
   }
   .header {
     background: linear-gradient(135deg, #5b8a72, #6fa38a);
     color: white;
-    padding: 20px 28px;
+    padding: 22px 32px;
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
   .header-left .label {
-    font-size: 13px;
+    font-size: 15px;
     opacity: 0.9;
     margin-bottom: 2px;
   }
   .header-left .issue {
-    font-size: 22px;
+    font-size: 24px;
     font-weight: 700;
   }
   .header-right {
     text-align: right;
   }
   .header-right .date {
-    font-size: 13px;
+    font-size: 15px;
     opacity: 0.9;
   }
   .header-right .subject {
-    font-size: 14px;
+    font-size: 16px;
     margin-top: 2px;
   }
   .section {
-    padding: 20px 28px;
+    padding: 22px 32px;
     border-bottom: 1px solid #e8f0ec;
   }
   .section:last-child { border-bottom: none; }
@@ -57,48 +64,48 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 700;
     color: #5b8a72;
-    margin-bottom: 12px;
+    margin-bottom: 14px;
   }
   .tag {
     display: inline-block;
     background: #e8f4ef;
     color: #5b8a72;
-    font-size: 12px;
-    padding: 3px 10px;
+    font-size: 14px;
+    padding: 4px 12px;
     border-radius: 20px;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
   }
   .problem-text {
-    font-size: 15px;
-    line-height: 1.9;
+    font-size: 17px;
+    line-height: 2;
     color: #333;
   }
-  .problem-text p { margin-bottom: 8px; }
+  .problem-text p { margin-bottom: 10px; }
   .hint-box {
     background: #f7faf8;
     border-left: 4px solid #5b8a72;
-    padding: 12px 16px;
+    padding: 14px 18px;
     border-radius: 0 8px 8px 0;
-    font-size: 14px;
-    line-height: 1.8;
+    font-size: 16px;
+    line-height: 1.9;
     color: #555;
   }
   .hint-box .hint-label {
     font-weight: 700;
     color: #5b8a72;
-    margin-bottom: 4px;
+    margin-bottom: 6px;
   }
   .answer-box {
     background: #f0faf4;
     border-radius: 10px;
-    padding: 16px;
+    padding: 18px;
   }
   .answer-text {
-    font-size: 14px;
-    line-height: 2;
+    font-size: 16px;
+    line-height: 2.1;
     color: #333;
   }
   .answer-text .final-answer {
@@ -106,17 +113,17 @@
     background: #5b8a72;
     color: white;
     font-weight: 700;
-    padding: 2px 10px;
+    padding: 3px 12px;
     border-radius: 6px;
-    margin-top: 4px;
+    margin-top: 6px;
   }
   .footer {
     background: #f7faf8;
-    padding: 12px 28px;
+    padding: 14px 32px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 12px;
+    font-size: 14px;
     color: #999;
   }
 </style>
